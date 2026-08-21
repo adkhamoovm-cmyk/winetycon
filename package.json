@@ -6,8 +6,9 @@
   "scripts": {
     "dev": "bash start-bot.sh & vite --port=3000 --host=0.0.0.0",
     "build": "vite build",
+    "start": "npm run build && node server.js & bash start-bot.sh",
     "preview": "vite preview",
-    "clean": "rm -rf dist server.js",
+    "clean": "rm -rf dist",
     "lint": "tsc --noEmit"
   },
   "dependencies": {
