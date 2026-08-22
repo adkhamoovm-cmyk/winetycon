@@ -1,9 +1,10 @@
 import asyncio
 from datetime import datetime
+from pathlib import Path
 from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker, AsyncSession
 from sqlalchemy.orm import declarative_base, Mapped, mapped_column
 from sqlalchemy import BigInteger, String, Boolean, Float, DateTime, ForeignKey, Integer
-from bot.config import DB_URL
+from bot.config import DB_URL, DB_PATH
 
 Base = declarative_base()
 
@@ -74,6 +75,7 @@ engine = create_async_engine(DB_URL, echo=False)
 async_session = async_sessionmaker(engine, expire_on_commit=False, class_=AsyncSession)
 
 async def init_db():
+    Path(DB_PATH).parent.mkdir(parents=True, exist_ok=True)
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
     async with async_session() as session:
