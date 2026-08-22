@@ -7,4 +7,5 @@ BOT_TOKEN = os.getenv("BOT_TOKEN")
 if not BOT_TOKEN:
     raise RuntimeError("BOT_TOKEN environment variable is required")
 ADMIN_IDS = [int(x) for x in os.getenv("ADMIN_IDS", "7807771944").split(",") if x]
-DB_URL = "sqlite+aiosqlite:///bot/database.db"
+DB_PATH = os.getenv("DB_PATH", "bot/database.db")
+DB_URL = f"sqlite+aiosqlite:///{DB_PATH}"
